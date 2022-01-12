@@ -62,6 +62,7 @@ WINE_DEFAULT_DEBUG_CHANNEL(dinput);
 
 #define VID_LOGITECH 0x046d
 #define PID_LOGITECH_G920 0xc262
+#define PID_LOGITECH_G923X 0xc26e
 
 typedef struct JoystickImpl JoystickImpl;
 static const IDirectInputDevice8AVtbl JoystickAvt;
@@ -1086,7 +1087,7 @@ static enum_device_state_function select_enum_function(struct SDLDev *sdldev)
         TRACE("for %04x/%04x, polling xbox 360/one controller\n", sdldev->vendor_id, sdldev->product_id);
         return enum_device_state_ms_xb360;
     }
-    else if(sdldev->vendor_id == VID_LOGITECH && sdldev->product_id == PID_LOGITECH_G920)
+    else if(sdldev->vendor_id == VID_LOGITECH && (sdldev->product_id == PID_LOGITECH_G920 || sdldev->product_id == PID_LOGITECH_G923X))
     {
         TRACE("for %04x/%04x, polling Logitech G920 wheel\n", sdldev->vendor_id, sdldev->product_id);
         return enum_device_state_g920;
